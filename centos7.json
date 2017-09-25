@@ -3,19 +3,25 @@
         {
             "type": "virtualbox-iso",
             "headless": "{{user `headless`}}",
-            "boot_command": "<tab> nofb text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `kickstart_file`}}<enter><wait>",
+            "boot_command": [
+                "<tab> ",
+                "text ",
+                "ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `kickstart_file`}} ",
+                "biosdevname=0 ",
+                "net.ifnames=0",
+                "<enter>",
+                "<wait>"
+            ],
             "disk_size": "{{user `disk_size`}}",
             "guest_os_type": "RedHat_64",
             "hard_drive_interface": "{{user `hard_drive_interface`}}",
             "http_directory": "www",
-            "iso_urls": [
-                "https://archive.kernel.org/centos/7.2.1511/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso"
-            ],
-            "iso_checksum_type": "sha256",
-            "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
+            "iso_url": "{{user `iso_url`}}",
+            "iso_checksum": "{{user `iso_checksum`}}",
+            "iso_checksum_type": "{{user `iso_checksum_type`}}",
             "ssh_username": "vagrant",
             "ssh_password": "vagrant",
-            "ssh_wait_timeout": "10m",
+            "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
             "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
             "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
             "vm_name": "centos7-x86_64",
@@ -32,11 +38,24 @@
             "type": "vagrant"
         }
     ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "scripts": [
+                "scripts/centos/cleanup.sh",
+                "scripts/centos/ifcfg-name-to-device.sh",
+                "scripts/centos/zerofree.sh"
+            ]
+        }
+    ],
     "variables": {
         "cpus": "1",
         "disk_size": "8192",
         "hard_drive_interface": "sata",
         "headless": "false",
+        "iso_checksum": "bba314624956961a2ea31dd460cd860a77911c1e0a56e4820a12b9c5dad363f5",
+        "iso_checksum_type": "sha256",
+        "iso_url": "https://mirrors.kernel.org/centos/7.4.1708/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso",
         "kickstart_file": "ks.cfg",
         "memsize": "512",
         "nictype": "virtio",
