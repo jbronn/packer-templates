@@ -2,10 +2,9 @@
 
 SSH_USER="${SSH_USER:-centos}"
 SSH_USER_AUTHORIZED_KEYS="${SSH_USER_AUTHORIZED_KEYS:-}"
-SSH_USER_HOME="${SSH_USER_HOME:-centos}"
 SSH_USER_PASSWORD="${SSH_USER_PASSWORD:-centos}"
 SSH_USER_SHELL="${SSH_USER_SHELL:-/bin/bash}"
-SSH_USER_SUDO="${SSH_USER_SUDO:-ALL=(ALL:ALL) NOPASSWD: ALL}"
+SSH_USER_HOME="/home/${SSH_USER}"
 
 echo '--> Adding SSH user.'
 useradd \
@@ -27,5 +26,5 @@ echo '---> Restoring SELinux context'
 restorecon -R ${SSH_USER_HOME}/.ssh
 
 echo '--> Configuring sudoer access.'
-echo "${SSH_USER} ${SSH_USER_SUDO}" > /etc/sudoers.d/${SSH_USER}
+echo "${SSH_USER} ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/${SSH_USER}
 chmod 0440 /etc/sudoers.d/${SSH_USER}
