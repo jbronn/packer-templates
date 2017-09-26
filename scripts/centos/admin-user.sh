@@ -1,8 +1,8 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
-SSH_USER="${SSH_USER:-centos}"
+SSH_USER="${SSH_USER:-vagrant}"
 SSH_USER_AUTHORIZED_KEYS="${SSH_USER_AUTHORIZED_KEYS:-}"
-SSH_USER_PASSWORD="${SSH_USER_PASSWORD:-centos}"
+SSH_USER_PASSWORD="${SSH_USER_PASSWORD:-vagrant}"
 SSH_USER_SHELL="${SSH_USER_SHELL:-/bin/bash}"
 SSH_USER_HOME="/home/${SSH_USER}"
 

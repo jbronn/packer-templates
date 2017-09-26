@@ -13,9 +13,12 @@
                 "KEYBOARD={{user `guest_keyboard`}} ",
                 "TIMEZONE={{user `guest_timezone`}} ",
                 "ROOTPW={{user `ssh_root_password`}} ",
+                "VBOXGUEST={{user `guest_additions_mode`}} ",
                 "<enter><wait>"
             ],
             "disk_size": "{{user `disk_size`}}",
+            "guest_additions_mode": "{{user `guest_additions_mode`}}",
+            "guest_additions_path": "VBoxGuestAdditions.iso",
             "guest_os_type": "RedHat_64",
             "hard_drive_interface": "{{user `hard_drive_interface`}}",
             "http_directory": "www",
@@ -27,7 +30,6 @@
             "ssh_password": "{{user `ssh_root_password`}}",
             "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
             "shutdown_command": "shutdown --no-wall -P now",
-            "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
             "vm_name": "centos7-x86_64",
             "vboxmanage": [
                 ["modifyvm", "{{.Name}}", "--audio", "none"],
@@ -48,16 +50,20 @@
         {
             "type": "shell",
             "environment_vars": [
+                "GUEST_LANG={{user `guest_language`}}",
                 "SSH_USER={{user `ssh_user`}}",
                 "SSH_USER_AUTHORIZED_KEYS={{user `ssh_user_authorized_keys`}}",
                 "SSH_USER_PASSWORD={{user `ssh_user_password`}}",
-                "SSH_USER_SHELL={{user `ssh_user_shell`}}"
+                "SSH_USER_SHELL={{user `ssh_user_shell`}}",
+                "VBOXGUEST={{user `guest_additions_mode`}}"
             ],
             "scripts": [
                 "scripts/centos/yum-update.sh",
-                "scripts/centos/ssh-user.sh",
+                "scripts/centos/vboxguest.sh",
+                "scripts/centos/admin-user.sh",
                 "scripts/centos/sshd.sh",
                 "scripts/centos/network-config.sh",
+                "scripts/centos/tuned.sh",
                 "scripts/centos/cleanup.sh",
                 "scripts/centos/zerofree.sh",
                 "scripts/centos/lock-root-user.sh"
@@ -67,6 +73,7 @@
     "variables": {
         "cpus": "1",
         "disk_size": "8192",
+        "guest_additions_mode": "upload",
         "guest_keyboard": "us",
         "guest_timezone": "UTC",
         "guest_language": "en_US.UTF-8",

@@ -1,6 +1,9 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 GUEST_LANG="${GUEST_LANG:-en_US.UTF-8}"
+
+echo '--> Cleaning yum'
+yum clean all
 
 echo '--> Cleaning unused locale files'
 
@@ -34,3 +37,10 @@ rm -f /etc/ssh/ssh_host_*
 
 echo '---> Removing machine-id.'
   :> /etc/machine-id
+
+echo '---> Stopping logging services.'
+#systemctl stop auditd.service
+systemctl stop rsyslog.service
+
+echo '---> Truncate log files.'
+find /var/log -type f -exec truncate -s 0 {} \;
