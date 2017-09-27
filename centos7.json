@@ -9,11 +9,11 @@
                 "ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `kickstart_file`}} ",
                 "biosdevname=0 ",
                 "net.ifnames=0 ",
+                "DISK_FS={{user `disk_fs`}} ",
                 "LANG={{user `guest_language`}} ",
                 "KEYBOARD={{user `guest_keyboard`}} ",
                 "TIMEZONE={{user `guest_timezone`}} ",
                 "ROOTPW={{user `ssh_root_password`}} ",
-                "VBOXGUEST={{user `guest_additions_mode`}} ",
                 "<enter><wait>"
             ],
             "disk_size": "{{user `disk_size`}}",
@@ -43,6 +43,7 @@
     "post-processors": [
         {
             "output": "boxes/centos7-{{.Provider}}.box",
+            "compression_level": "9",
             "type": "vagrant"
         }
     ],
@@ -72,6 +73,7 @@
     ],
     "variables": {
         "cpus": "1",
+        "disk_fs": "xfs",
         "disk_size": "8192",
         "guest_additions_mode": "upload",
         "guest_keyboard": "us",
