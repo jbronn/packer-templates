@@ -17,6 +17,7 @@
                 "<enter><wait>"
             ],
             "disk_size": "{{user `disk_size`}}",
+            "format": "{{user `format`}}",
             "guest_additions_mode": "{{user `guest_additions_mode`}}",
             "guest_additions_path": "VBoxGuestAdditions.iso",
             "guest_os_type": "RedHat_64",
@@ -26,6 +27,7 @@
             "iso_checksum": "{{user `iso_checksum`}}",
             "iso_checksum_type": "{{user `iso_checksum_type`}}",
             "iso_interface": "sata",
+            "post_shutdown_delay": "{{user `post_shutdown_delay`}}",
             "ssh_username": "root",
             "ssh_password": "{{user `ssh_root_password`}}",
             "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
@@ -75,6 +77,7 @@
         "cpus": "1",
         "disk_fs": "xfs",
         "disk_size": "8192",
+        "format": "ovf",
         "guest_additions_mode": "upload",
         "guest_keyboard": "us",
         "guest_timezone": "UTC",
@@ -87,12 +90,13 @@
         "kickstart_file": "ks.cfg",
         "memsize": "512",
         "nictype": "virtio",
+        "post_shutdown_delay": "10s",
         "ssh_root_password": "vagrant",
         "ssh_user": "vagrant",
         "ssh_user_authorized_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key",
         "ssh_user_password": "vagrant",
         "ssh_user_shell": "/bin/bash",
         "ssh_wait_timeout": "10m",
-        "vm_name": "centos7-x64"
+        "vm_name": "centos7-minimal"
     }
 }

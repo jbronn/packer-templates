@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # Bail if we don't really want to install the guest extensions.
-if [ "${VBOXGUEST}" = "disabled" ]; then
+if [ "${VBOXGUEST}" = "disable" ]; then
     exit 0
 fi
 
