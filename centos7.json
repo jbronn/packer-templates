@@ -54,10 +54,10 @@
             "type": "shell",
             "environment_vars": [
                 "GUEST_LANG={{user `guest_language`}}",
-                "SSH_USER={{user `ssh_user`}}",
-                "SSH_USER_AUTHORIZED_KEYS={{user `ssh_user_authorized_keys`}}",
-                "SSH_USER_PASSWORD={{user `ssh_user_password`}}",
-                "SSH_USER_SHELL={{user `ssh_user_shell`}}",
+                "ADMIN_USER={{user `admin_user`}}",
+                "ADMIN_USER_AUTHORIZED_KEYS={{user `admin_user_authorized_keys`}}",
+                "ADMIN_USER_PASSWORD={{user `admin_user_password`}}",
+                "ADMIN_USER_SHELL={{user `admin_user_shell`}}",
                 "VBOXGUEST={{user `guest_additions_mode`}}"
             ],
             "scripts": [
@@ -74,6 +74,11 @@
         }
     ],
     "variables": {
+        "admin_user": "vagrant",
+        "admin_user_authorized_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key",
+        "admin_user_password": "vagrant",
+        "admin_user_shell": "/bin/bash",
+        "cloud_init": "no",
         "cpus": "1",
         "disk_fs": "xfs",
         "disk_size": "8192",
@@ -92,10 +97,6 @@
         "nictype": "virtio",
         "post_shutdown_delay": "10s",
         "ssh_root_password": "vagrant",
-        "ssh_user": "vagrant",
-        "ssh_user_authorized_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key",
-        "ssh_user_password": "vagrant",
-        "ssh_user_shell": "/bin/bash",
         "ssh_wait_timeout": "10m",
         "vm_name": "centos7-minimal"
     }
