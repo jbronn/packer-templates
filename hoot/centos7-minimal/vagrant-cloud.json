@@ -1,0 +1,22 @@
+{
+    "post-processors": [
+        [
+            {
+                "type": "vagrant",
+                "compression_level": "9",
+                "output": "boxes/centos7-{{.Provider}}.box"
+            },
+            {
+                "type": "vagrant-cloud",
+                "access_token": "{{user `access_token`}}",
+                "box_tag": "{{user `box_tag`}}",
+                "version": "{{user `box_version`}}"
+            }
+        ]
+    ],
+    "variables": {
+        "access_token": null,
+        "box_tag": "hoot/centos7-minimal",
+        "box_version": null
+    }
+}

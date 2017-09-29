@@ -1,0 +1,9 @@
+{
+    "post-processors": [
+        {
+            "type": "vagrant",
+            "compression_level": "9",
+            "output": "boxes/hoot-centos7-minimal_{{.Provider}}.box"
+        }
+    ]
+}
