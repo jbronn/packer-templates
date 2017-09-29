@@ -14,7 +14,7 @@
     ],
     "variables": {
         "access_key": null,
-        "cloud_init": "yes"
+        "cloud_init": "yes",
         "format": "ova",
         "guest_additions_mode": "disable",
         "region": null,
