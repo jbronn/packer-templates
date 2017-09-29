@@ -39,14 +39,11 @@
                 ["modifyvm", "{{.Name}}", "--memory", "{{user `memsize`}}"],
                 ["modifyvm", "{{.Name}}", "--nictype1", "{{user `nictype`}}"],
                 ["modifyvm", "{{.Name}}", "--usb", "off"]
-             ]
-        }
-    ],
-    "post-processors": [
-        {
-            "output": "boxes/centos7-{{.Provider}}.box",
-            "compression_level": "9",
-            "type": "vagrant"
+            ],
+            "vboxmanage_post": [
+                ["modifyvm", "{{.Name}}", "--vrde", "off"],
+                ["storagectl", "{{.Name}}", "--name", "IDE Controller", "--remove"]
+            ]
         }
     ],
     "provisioners": [
