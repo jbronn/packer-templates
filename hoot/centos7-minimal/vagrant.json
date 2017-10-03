@@ -5,5 +5,8 @@
             "compression_level": "9",
             "output": "output/hoot/centos7-minimal_{{.Provider}}.box"
         }
-    ]
+    ],
+    "variables": {
+        "disk_size": "40960"
+    }
 }

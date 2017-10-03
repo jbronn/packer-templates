@@ -17,6 +17,7 @@
     "variables": {
         "access_token": null,
         "box_tag": "hoot/centos7-minimal",
-        "box_version": null
+        "box_version": null,
+        "disk_size": "40960"
     }
 }
