@@ -22,6 +22,8 @@ This box can be built in three separate ways using the `hoot/centos7-minimal/bui
 ./hoot/centos7-minimal/build.sh
 ```
 
+This will produce a local Vagrant box (using VirtualBox) at `output/hoot/centos7-minimal_virtualbox.box`.
+
 ### Vagrant Cloud
 
 ```
@@ -39,6 +41,5 @@ BUILD_TYPE=amazon-import \
   -var 'access_key=AAAABBBBCCCC' \
   -var 'secret_key=secret' \
   -var 'region=us-east-1' \
-  -var 's3_bucket_name=my-bucket' \
-  -var-file=secrets.json
+  -var 's3_bucket_name=my-bucket'
 ```
