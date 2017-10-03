@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-BUILD_TYPE="${PROVIDER:-vagrant}"
+BUILD_TYPE="${BUILD_TYPE:-vagrant}"
 
 # Use `jq` to merge the base centos7 template with the proper variables
 # and post-processors.
