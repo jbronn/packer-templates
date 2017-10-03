@@ -4,11 +4,16 @@
             "type": "amazon-import",
             "access_key": "{{user `access_key`}}",
             "secret_key": "{{user `secret_key`}}",
+            "ami_groups": [
+                "all"
+            ],
+            "ami_name": "{{user `vm_name`}}-v{{isotime \"20060102\"}}",
             "region": "{{user `region`}}",
             "s3_bucket_name": "{{user `s3_bucket_name`}}",
             "license_type": "BYOL",
             "tags": {
-                "Description": "CentOS 7 Minimal {{timestamp}}"
+                "Description": "CentOS 7 Minimal (v{{isotime \"20060102\"}}.0.0)",
+                "Name": "{{user `vm_name`}}"
             }
         }
     ],
