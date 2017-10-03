@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 # I've encountered issues with anaconda writing the wrong UUIDs to the system
 # fstab when the `autopart --type=`plain` kickstart command.  This causes a
@@ -7,6 +7,7 @@
 # This script rewrites `/etc/fstab` to contain the correct UUIDs and sets the
 # `fs_passno` to 1 for the root filesystem.
 if [ "${DISK_TYPE}" = "plain" ]; then
+    echo '--> Fixing /etc/fstab'
     # Use `lsblk` to get the UUIDs and filesystems for the partitions used
     # in the 'plain' partition type (/boot on sda1, swap on sda2, / on sda3).
     BOOT_FS="$(lsblk -o FSTYPE -n /dev/sda1)"
