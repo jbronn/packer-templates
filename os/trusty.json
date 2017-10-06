@@ -22,7 +22,7 @@
                 "passwd/root-password-again=\"{{user `admin_user_password`}}\" ",
                 "preseed/late_command=\"",
                 "in-target wget -q -O /tmp/postinstall.sh http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `postinstall_script`}} ; ",
-                "in-target KERNEL_PACKAGE={{user `kernel_package`}} /bin/sh /tmp/postinstall.sh; \" ",
+                "in-target /bin/sh /tmp/postinstall.sh {{user `kernel_package`}}; \" ",
                 "initrd=/install/initrd.gz -- ",
                 "biosdevname=0 ",
                 "net.ifnames=0 ",
