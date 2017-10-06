@@ -6,7 +6,14 @@ if [ "${VBOXGUEST}" = "disable" ]; then
 fi
 
 # Install the prerequisites necessary to build the guest extensions.
-yum install -q -y bzip2 dkms gcc kernel-devel make perl
+if [ -x /usr/bin/yum ]; then
+    yum install -q -y bzip2 dkms gcc kernel-devel make perl
+else
+    export APT_LISTBUGS_FRONTEND=none
+    export APT_LISTCHANGES_FRONTEND=none
+    export DEBIAN_FRONTEND=noninteractive
+    sudo apt-get -y install build-essential dkms secure-delete
+fi
 
 # Mount the VirtualBox guest extensions ISO.
 mkdir -p /media/cdrom
