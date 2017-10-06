@@ -12,7 +12,7 @@ VM_NAME="${BUILD_NAME:-${OS}-minimal}"
 # that truly differ between platforms.  The rest of the JSON information is recursively
 # merged together from the post-processor file.
 jq -M -s \
-   '{builders: [(.[0].builders[0] * .[1].builders[0])], variables: (.[0].variables * .[1].variables)} * .[2]' \
+   '{builders: [(.[0].builders[0] * .[1].builders[0])], provisioners: (.[1].provisioners), variables: (.[0].variables * .[1].variables)} * .[2]' \
    builder/virtualbox-iso.json \
    os/$OS.json \
    post-processor/$POST_PROCESSOR.json | \
