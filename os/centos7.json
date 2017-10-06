@@ -36,7 +36,7 @@
                 "scripts/centos/yum-update.sh",
                 "scripts/centos/cloud-init.sh",
                 "scripts/centos/vboxguest.sh",
-                "scripts/centos/admin-user.sh",
+                "scripts/common/admin-user.sh",
                 "scripts/centos/sshd.sh",
                 "scripts/centos/network-config.sh",
                 "scripts/centos/tuned.sh",
