@@ -4,6 +4,7 @@ In order to use this repository your system requires the following command-line 
 
 * [Packer](https://www.packer.io)
 * [jq](https://stedolan.github.io/jq/)
+* [VirtualBox](https://www.virtualbox.org/)
 
 ## `hoot/centos7-minimal`
 
@@ -19,7 +20,7 @@ This box can be built in three separate ways using the `hoot/centos7-minimal/bui
 ### Vagrant
 
 ```
-./hoot/centos7-minimal/build.sh
+./build.sh
 ```
 
 This will produce a local Vagrant box (using VirtualBox) at `output/hoot/centos7-minimal_virtualbox.box`.
@@ -27,16 +28,16 @@ This will produce a local Vagrant box (using VirtualBox) at `output/hoot/centos7
 ### Vagrant Cloud
 
 ```
-BUILD_TYPE=vagrant-cloud \
+POST_PROCESSOR=vagrant-cloud \
 ./hoot/centos7-minimal/build.sh \
-  -var 'box_tag=20161108.0.0'
+  -var 'box_tag=hoot/centos7-minimal'
   -var 'access_token=AAABBBCCC'
 ```
 
 ### Amazon Import
 
 ```
-BUILD_TYPE=amazon-import \
+POST_PROCESSOR=amazon-import \
 ./hoot/centos7-minimal/build.sh \
   -var 'access_key=AAAABBBBCCCC' \
   -var 'secret_key=secret' \

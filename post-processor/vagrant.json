@@ -3,7 +3,7 @@
         {
             "type": "vagrant",
             "compression_level": "9",
-            "output": "output/hoot/centos7-minimal_{{.Provider}}.box"
+            "output": "output/{{user `vm_name`}}_{{.Provider}}.box"
         }
     ],
     "variables": {

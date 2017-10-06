@@ -4,7 +4,7 @@
             {
                 "type": "vagrant",
                 "compression_level": "9",
-                "output": "output/hoot/centos7-minimal_{{.Provider}}.box"
+                "output": "output/{{user `vm_name`}}_{{.Provider}}.box"
             },
             {
                 "type": "vagrant-cloud",
@@ -16,7 +16,7 @@
     ],
     "variables": {
         "access_token": null,
-        "box_tag": "hoot/centos7-minimal",
+        "box_tag": null,
         "box_version": "{{isotime \"20060102\"}}.0.0",
         "disk_size": "40960"
     }

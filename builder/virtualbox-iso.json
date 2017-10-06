@@ -1,0 +1,69 @@
+{
+    "builders": [
+        {
+            "type": "virtualbox-iso",
+            "boot_wait": "{{user `boot_wait`}}",
+            "disk_size": "{{user `disk_size`}}",
+            "format": "{{user `format`}}",
+            "guest_additions_mode": "{{user `guest_additions_mode`}}",
+            "guest_additions_path": "{{user `guest_additions_path`}}",
+            "guest_os_type": "{{user `guest_os_type`}}",
+            "hard_drive_interface": "{{user `hard_drive_interface`}}",
+            "headless": "{{user `headless`}}",
+            "http_directory": "{{user `http_directory`}}",
+            "iso_url": "{{user `iso_url`}}",
+            "iso_checksum": "{{user `iso_checksum`}}",
+            "iso_checksum_type": "{{user `iso_checksum_type`}}",
+            "iso_interface": "{{user `iso_interface`}}",
+            "output_directory": "build/{{build_name}}",
+            "post_shutdown_delay": "{{user `post_shutdown_delay`}}",
+            "shutdown_command": "{{user `shutdown_command`}}",
+            "ssh_username": "{{user `admin_user`}}",
+            "ssh_password": "{{user `admin_user_password`}}",
+            "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
+            "vboxmanage": [
+                ["modifyvm", "{{.Name}}", "--audio", "none"],
+                ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"],
+                ["modifyvm", "{{.Name}}", "--memory", "{{user `memsize`}}"],
+                ["modifyvm", "{{.Name}}", "--nictype1", "{{user `nictype`}}"],
+                ["modifyvm", "{{.Name}}", "--usb", "off"]
+            ],
+            "vboxmanage_post": [
+                ["modifyvm", "{{.Name}}", "--vrde", "off"],
+                ["storagectl", "{{.Name}}", "--name", "IDE Controller", "--remove"]
+            ],
+            "vm_name": "{{user `vm_name`}}"
+        }
+    ],
+    "variables": {
+        "admin_user": "vagrant",
+        "admin_user_authorized_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key",
+        "admin_user_password": "vagrant",
+        "admin_user_shell": "/bin/bash",
+        "boot_wait": "5s",
+        "cloud_init": "no",
+        "cpus": "1",
+        "disk_size": "8192",
+        "format": "ovf",
+        "guest_additions_mode": "upload",
+        "guest_additions_path": "VBoxGuestAdditions.iso",
+        "guest_keyboard": "us",
+        "guest_timezone": "UTC",
+        "guest_language": "en_US.UTF-8",
+        "guest_os_type": null,
+        "hard_drive_interface": "sata",
+        "http_directory": "www",
+        "headless": "false",
+        "iso_checksum": null,
+        "iso_checksum_type": "sha256",
+        "iso_interface": "sata",
+        "iso_url": null,
+        "memsize": "512",
+        "nictype": "virtio",
+        "post_shutdown_delay": "10s",
+        "shutdown_command": null,
+        "ssh_root_password": "vagrant",
+        "ssh_wait_timeout": "15m",
+        "vm_name": null
+    }
+ }
