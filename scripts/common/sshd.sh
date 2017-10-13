@@ -11,10 +11,11 @@ sed -i \
     -e 's/^\#\?\(PasswordAuthentication \(yes\|no\)\)/PasswordAuthentication no/g' \
     -e 's/^\#\?\(PermitRootLogin \(yes\|no\)\)/PermitRootLogin no/g' \
     -e '/^HostKey \/etc\/ssh\/ssh_host_dsa_key/d' \
-    -e '/^\#\?\(UseDNS \(yes\|no\)\)/d'
+    -e '/^\#\?\(UseDNS \(yes\|no\)\)/d' \
+    $SSHD_CONFIG
 
 # `UseDNS` config needs to be added as not available in default config on Ubuntu.
-echo "\nUseDNS no" >> $SSHD_CONFIG
+printf "\nUseDNS no\n" >> $SSHD_CONFIG
 
 # Upstart script on Ubuntu 14.04 to automatically generate SSH keys.
 if [ "$(lsb_release -s -c)" = "trusty" ]; then
