@@ -4,7 +4,7 @@ GUEST_LANG="${GUEST_LANG:-en_US.UTF-8}"
 
 echo '--> Cleaning virtual-guest.'
 
-echo '---> Cleaning yum'
+echo '---> Cleaning yum.'
 yum clean all
 
 echo '---> Removing locale (internationalisation) files for unused languages.'

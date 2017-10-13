@@ -37,7 +37,7 @@
                 "scripts/common/cloud-init.sh",
                 "scripts/common/vboxguest.sh",
                 "scripts/common/admin-user.sh",
-                "scripts/centos/sshd.sh",
+                "scripts/common/sshd.sh",
                 "scripts/centos/network-config.sh",
                 "scripts/centos/tuned.sh",
                 "scripts/centos/disk-fixes.sh",
@@ -51,8 +51,6 @@
         "disk_fs": "xfs",
         "disk_type": "lvm",
         "guest_os_type": "RedHat_64",
-        "iso_checksum": "bba314624956961a2ea31dd460cd860a77911c1e0a56e4820a12b9c5dad363f5",
-        "iso_url": "https://mirrors.kernel.org/centos/7.4.1708/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso",
         "kickstart_file": "ks.cfg",
         "shutdown_command": "shutdown --no-wall -P now"
     }
