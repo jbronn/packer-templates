@@ -17,7 +17,8 @@
                 "keyboard-configuration/layoutcode={{user `guest_keyboard`}} ",
                 "hostname={{user `vm_name`}} ",
                 "time/zone={{user `guest_timezone`}} ",
-                "partman-auto/method={{user `disk_type`}} ",
+                "partman-auto/method={{user `partman_method`}} ",
+                "partman-auto/choose_recipe={{user `partman_recipe`}} ",
                 "passwd/root-password=\"{{user `admin_user_password`}}\" ",
                 "passwd/root-password-again=\"{{user `admin_user_password`}}\" ",
                 "preseed/late_command=\"",
@@ -54,11 +55,12 @@
         }
     ],
     "variables": {
-        "disk_type": "lvm",
         "kernel_package": "linux-generic",
         "guest_os_type": "Ubuntu_64",
         "mirror_hostname": "us.archive.ubuntu.com",
         "mirror_directory": "/ubuntu",
+        "partman_method": "lvm",
+        "partman_recipe": "atomic",
         "preseed_file": "preseed.cfg",
         "postinstall_script": "postinstall.sh",
         "shutdown_command": "sudo shutdown -P now"
