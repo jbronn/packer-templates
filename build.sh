@@ -4,7 +4,6 @@
 BUILDER="${BUILDER:-virtualbox-iso}"
 OS="${OS:-centos}"
 POST_PROCESSOR="${POST_PROCESSOR:-vagrant}"
-VM_NAME="${VM_NAME:-${OS}-minimal}"
 
 # Determining the OS release to use.
 case "${OS}" in
@@ -30,6 +29,6 @@ jq -M -s \
    '{builders: [(.[0].builders[0] * .[1].builders[0])], provisioners: (.[1].provisioners), variables: (.[0].variables * .[1].variables)} * .[2] * .[3]' \
    builder/$BUILDER.json \
    os/$OS.json \
-   os/$OS_RELEASE.json \
+   os/$OS/$OS_RELEASE.json \
    post-processor/$POST_PROCESSOR.json | \
-   packer build -var vm_name=$VM_NAME "$@" -
+   packer build "$@" -
