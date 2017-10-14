@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 SSHD_CONFIG="${SSHD_CONFIG:-/etc/ssh/sshd_config}"
 
 # Configure SSH to:
