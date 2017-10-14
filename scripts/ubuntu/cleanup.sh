@@ -1,6 +1,4 @@
-#!/bin/bash
-set -ex
-
+#!/bin/bash -e
 echo '--> Cleaning virtual-guest.'
 
 # Clean out any cached interfaces.
@@ -14,8 +12,8 @@ dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/"
 rm -f /var/lib/apt/lists/lock
 rm -f /var/lib/apt/lists/*_*
 rm -f /var/lib/apt/lists/partial/*
-apt-get -y autoremove
-apt-get -y clean
+apt-get -q -y autoremove
+apt-get -q -y clean
 
 echo '---> Purging temporary directories.'
 find /{root,tmp,var/cache} -type f -delete
