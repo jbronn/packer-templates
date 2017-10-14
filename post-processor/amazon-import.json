@@ -25,6 +25,9 @@
         "disk_type": "plain",
         "format": "ova",
         "guest_additions_mode": "disable",
+        "partman_method": "regular",
+        "partman_recipe": "plain",
+        "preseed_file": "preseed-ext4.cfg",
         "region": null,
         "s3_bucket_name": null,
         "secret_key": null

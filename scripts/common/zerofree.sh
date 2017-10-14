@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 echo '--> Zero out free space on disks.'
 
 DD_BLOCKSIZE="${DD_BLOCKSIZE:-1M}"
@@ -9,11 +9,15 @@ if [ -z "${SWAP_UUID}" ]; then
     echo '---> Skipping, no swap device.'
 else
     echo '---> Zero out swap.'
-    SWAP_DEVICE=/dev/disk/by-uuid/$SWAP_UUID
+    SWAP_DEVICE="$(readlink -f /dev/disk/by-uuid/${SWAP_UUID})"
 
+    # Turn off swap and write zeros.
     swapoff -a
     dd if=/dev/zero of=$SWAP_DEVICE bs=$DD_BLOCKSIZE status=$DD_STATUS || true
+
+    # Turn on swap again and restore UUID to the device.
     mkswap -f $SWAP_DEVICE
+    swaplabel -U $SWAP_UUID $SWAP_DEVICE
 fi
 
 if lsblk -n -o MOUNTPOINT | grep -q '^/boot$'; then
