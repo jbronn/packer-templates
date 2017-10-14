@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
-# Bail if we don't really want to install the guest extensions.
-if [ "${VBOXGUEST}" = "disable" ]; then
+# Bail if guest extensions ISO wasn't uploaded.
+if [ "${VBOXGUEST}" != "upload" ]; then
     exit 0
 fi
 
@@ -14,10 +14,10 @@ fi
 
 # Mount the VirtualBox guest extensions ISO.
 mkdir -p /media/cdrom
-mount -t iso9660 -o ro -o loop "$HOME/VBoxGuestAdditions.iso" /media/cdrom
+mount -t iso9660 -o ro -o loop $HOME/VBoxGuestAdditions.iso /media/cdrom
 
-# Install the VirtualBox guest extensions.
-#  (because X isn't available ignore exit code)
+# Install the VirtualBox guest extensions; ignore exit code
+# because no guarantee X is available.
 sh /media/cdrom/VBoxLinuxAdditions.run || true
 umount /media/cdrom
 rm -f $HOME/VBoxGuestAdditions.iso
