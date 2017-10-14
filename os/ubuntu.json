@@ -42,6 +42,9 @@
                 "ADMIN_USER_AUTHORIZED_KEYS={{user `admin_user_authorized_keys`}}",
                 "ADMIN_USER_PASSWORD={{user `admin_user_password`}}",
                 "ADMIN_USER_SHELL={{user `admin_user_shell`}}",
+                "APT_LISTBUGS_FRONTEND=none",
+                "APT_LISTCHANGES_FRONTEND=none",
+                "DEBIAN_FRONTEND=noninteractive",
                 "VBOXGUEST={{user `guest_additions_mode`}}"
             ],
             "scripts": [

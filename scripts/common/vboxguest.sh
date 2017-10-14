@@ -9,10 +9,7 @@ fi
 if [ -x /usr/bin/yum ]; then
     yum install -q -y bzip2 dkms gcc kernel-devel make perl
 else
-    export APT_LISTBUGS_FRONTEND=none
-    export APT_LISTCHANGES_FRONTEND=none
-    export DEBIAN_FRONTEND=noninteractive
-    sudo apt-get -y install build-essential dkms secure-delete
+    apt-get -q -y install build-essential dkms
 fi
 
 # Mount the VirtualBox guest extensions ISO.
