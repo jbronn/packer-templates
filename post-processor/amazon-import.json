@@ -4,7 +4,6 @@
             "type": "amazon-import",
             "access_key": "{{user `access_key`}}",
             "secret_key": "{{user `secret_key`}}",
-            "ami_description": "{{user `ami_description`}}",
             "ami_groups": [
                 "all"
             ],
@@ -13,7 +12,8 @@
             "s3_bucket_name": "{{user `s3_bucket_name`}}",
             "license_type": "BYOL",
             "tags": {
-                "Name": "{{user `vm_name`}}"
+                "Name": "{{user `vm_name`}}",
+                "Description": "{{user `ami_description`}}"
             }
         }
     ],
