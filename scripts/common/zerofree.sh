@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 echo '--> Zero out free space on disks.'
 
 DD_BLOCKSIZE="${DD_BLOCKSIZE:-1M}"
