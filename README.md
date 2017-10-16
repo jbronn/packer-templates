@@ -49,7 +49,7 @@ OS=centos OS_RELEASE=7.4 POST_PROCESSOR=vagrant-cloud ./build.sh \
 
 AWS-provided:
 
-```
+```sh
 OS=centos OS_RELEASE=7.4 POST_PROCESSOR=amazon-import ./build.sh \
   -var 'vm_name=centos7-minimal' \
   -var 'ami_description=CentOS 7 Minimal' \
