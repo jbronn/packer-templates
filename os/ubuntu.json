@@ -1,0 +1,72 @@
+{
+    "builders": [
+        {
+            "boot_command": [
+                "<esc><esc><enter><wait>",
+                "/install/vmlinuz ",
+                "noapic ",
+                "auto=true ",
+                "url={{ .HTTPIP }}:{{ .HTTPPort }}/{{user `preseed_file`}} ",
+                "mirror/http/hostname=\"{{user `mirror_hostname`}}\" ",
+                "mirror/http/directory=\"{{user `mirror_directory`}}\" ",
+                "apt-setup/security_host=\"{{user `mirror_hostname`}}\" ",
+                "apt-setup/security_path=\"{{user `mirror_directory`}}\" ",
+                "console-setup/layoutcode={{user `guest_keyboard`}} ",
+                "debian-installer/locale={{user `guest_language`}} ",
+                "base-installer/kernel/override-image={{user `kernel_package`}} ",
+                "keyboard-configuration/layoutcode={{user `guest_keyboard`}} ",
+                "hostname={{user `vm_name`}} ",
+                "time/zone={{user `guest_timezone`}} ",
+                "partman-auto/method={{user `partman_method`}} ",
+                "partman-auto/choose_recipe={{user `partman_recipe`}} ",
+                "passwd/root-password=\"{{user `admin_user_password`}}\" ",
+                "passwd/root-password-again=\"{{user `admin_user_password`}}\" ",
+                "preseed/late_command=\"",
+                "in-target wget -q -O /tmp/postinstall.sh http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `postinstall_script`}} ; ",
+                "in-target /bin/sh /tmp/postinstall.sh {{user `kernel_package`}}; \" ",
+                "initrd=/install/initrd.gz -- ",
+                "biosdevname=0 ",
+                "net.ifnames=0 ",
+                "<enter>"
+            ],
+            "ssh_username": "root",
+            "ssh_password": "{{user `admin_user_password`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "environment_vars": [
+                "CLOUD_INIT={{user `cloud_init`}}",
+                "ADMIN_USER={{user `admin_user`}}",
+                "ADMIN_USER_AUTHORIZED_KEYS={{user `admin_user_authorized_keys`}}",
+                "ADMIN_USER_PASSWORD={{user `admin_user_password`}}",
+                "ADMIN_USER_SHELL={{user `admin_user_shell`}}",
+                "APT_LISTBUGS_FRONTEND=none",
+                "APT_LISTCHANGES_FRONTEND=none",
+                "DEBIAN_FRONTEND=noninteractive",
+                "VBOXGUEST={{user `guest_additions_mode`}}"
+            ],
+            "scripts": [
+                "scripts/common/admin-user.sh",
+                "scripts/common/vboxguest.sh",
+                "scripts/common/cloud-init.sh",
+                "scripts/common/sshd.sh",
+                "scripts/ubuntu/cleanup.sh",
+                "scripts/common/zerofree.sh",
+                "scripts/common/lock-root-user.sh"
+            ]
+        }
+    ],
+    "variables": {
+        "kernel_package": "linux-generic",
+        "guest_os_type": "Ubuntu_64",
+        "mirror_hostname": "us.archive.ubuntu.com",
+        "mirror_directory": "/ubuntu",
+        "partman_method": "lvm",
+        "partman_recipe": "atomic",
+        "preseed_file": "preseed.cfg",
+        "postinstall_script": "postinstall.sh",
+        "shutdown_command": "sudo shutdown -P now"
+    }
+}

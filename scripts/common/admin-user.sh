@@ -18,9 +18,11 @@ echo "${ADMIN_USER_AUTHORIZED_KEYS}" > ${ADMIN_USER_HOME}/.ssh/authorized_keys
 chown -R ${ADMIN_USER}:${ADMIN_USER} ${ADMIN_USER_HOME}/.ssh
 chmod 0600 ${ADMIN_USER_HOME}/.ssh/authorized_keys
 
-echo '---> Restoring SELinux context.'
-restorecon -R ${ADMIN_USER_HOME}/.ssh
-
+if [ -x /usr/sbin/restorecon ]; then
+    echo '---> Restoring SELinux context.'
+    restorecon -R ${ADMIN_USER_HOME}/.ssh
+fi
+    
 echo '---> Configuring admin user sudo access.'
 echo "${ADMIN_USER} ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/${ADMIN_USER}
 chmod 0440 /etc/sudoers.d/${ADMIN_USER}
