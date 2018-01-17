@@ -7,7 +7,7 @@ This repository generates Packer templates for building virtual machines.
 In order to use this repository your system requires the following:
 
 * [Packer](https://www.packer.io)
-* [jq](https://stedolan.github.io/jq/)
+* [jq](https://stedolan.github.io/jq/) (minimum version of 1.5)
 * [VirtualBox](https://www.virtualbox.org/)
 
 ## `build.sh`
