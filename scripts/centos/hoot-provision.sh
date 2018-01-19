@@ -1,9 +1,6 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 
-sudo yum -q -y install git
-cd ../home/vagrant
-git clone https://github.com/ngageoint/hootenanny -b develop hoot
-sudo chown -R vagrant:vagrant hoot
-cd hoot
-pwd
-su vagrant -c "./VagrantProvisionCentOS7.sh"
+yum -q -y install git
+su -l vagrant -c "git clone -b develop https://github.com/ngageoint/hootenanny hoot"
+su -l vagrant -c "./hoot/VagrantProvisionCentOS7.sh"
