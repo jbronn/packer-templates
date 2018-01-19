@@ -1,0 +1,12 @@
+{
+    "provisioners": [
+       {
+           "type": "shell",
+           "environment_vars": [
+           ],
+           "scripts": [
+               "scripts/centos/hoot-provision.sh"
+           ]
+       }
+    ]
+}
