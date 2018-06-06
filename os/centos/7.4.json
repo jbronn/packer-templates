@@ -1,6 +1,6 @@
 {
     "variables": {
         "iso_checksum": "bba314624956961a2ea31dd460cd860a77911c1e0a56e4820a12b9c5dad363f5",
-        "iso_url": "https://mirrors.kernel.org/centos/7.4.1708/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso"
+        "iso_url": "http://vault.centos.org/7.4.1708/isos/x86_64/CentOS-7-x86_64-NetInstall-1708.iso"
     }
 }
