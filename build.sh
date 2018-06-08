@@ -12,7 +12,7 @@ case "${OS}" in
         DEFAULT_RELEASE="7.5"
         ;;
     ubuntu)
-        DEFAULT_RELEASE="trusty"
+        DEFAULT_RELEASE="bionic"
         ;;
     *)
         echo "Don't know how to build ${OS} yet, exiting."
