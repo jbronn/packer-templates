@@ -1,0 +1,10 @@
+{
+    "variables": {
+        "iso_checksum": "7b3feffcc9ade0dcaba3c5996c1eb797928cd76cecfa4c54bf8297b191bd461f",
+        "iso_url": "https://ftp.openbsd.org/pub/OpenBSD/6.3/amd64/cd63.iso",
+        "openbsd_version": "6.3",
+        "openbsd_version_spaceless": "63"
+    }
+}
+
+        

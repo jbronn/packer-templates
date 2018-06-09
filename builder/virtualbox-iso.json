@@ -64,6 +64,7 @@
         "shutdown_command": null,
         "ssh_root_password": "vagrant",
         "ssh_wait_timeout": "20m",
+        "vagrantfile_template": "vagrant/Vagrantfile.default",
         "vm_name": null
     }
  }

@@ -1,0 +1,10 @@
+{
+    "variables": {
+        "iso_checksum": "e66b406cf5775c934b04eb2c3af1f8f6f4704f67445b2dd22916a7b962a74667",
+        "iso_url": "https://ftp.openbsd.org/pub/OpenBSD/6.2/amd64/cd62.iso",
+        "openbsd_version": "6.2",
+        "openbsd_version_spaceless": "62"
+    }
+}
+
+        

@@ -11,6 +11,9 @@ case "${OS}" in
     centos)
         DEFAULT_RELEASE="7.5"
         ;;
+    openbsd)
+        DEFAULT_RELEASE="6.3"
+        ;;
     ubuntu)
         DEFAULT_RELEASE="bionic"
         ;;

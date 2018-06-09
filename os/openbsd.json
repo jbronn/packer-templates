@@ -1,0 +1,62 @@
+{
+    "builders": [
+        {
+            "boot_command": [
+                "S<enter>",
+                "cat <<EOF >>install.conf<enter>",
+                "System hostname = openbsd{{user `openbsd_version_spaceless`}}<enter>",
+                "Password for root = {{user `admin_user_password`}}<enter>",
+                "Setup a user = no<enter>",
+                "Do you expect to run the X Window System = {{user `x_windows`}}<enter>",
+                "Allow root ssh login = yes<enter>",
+                "What timezone are you in = {{user `guest_timezone`}}<enter>",
+                "Location of sets = http<enter>",
+                "HTTP Server = {{user `mirror_hostname`}}<enter>",
+                "Set name(s) = {{user `set_names`}}<enter>",
+                "Unable to connect using https. Use http instead = {{user `mirror_use_http`}}<enter>",
+                "URL to autopartitioning template for disklabel = http://{{ .HTTPIP }}:{{ .HTTPPort }}/openbsd/{{user `disk_template`}}<enter>",
+                "EOF<enter>",
+                "install -af install.conf && reboot<enter>"
+            ],
+            "ssh_username": "root",
+            "ssh_password": "{{user `admin_user_password`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "environment_vars": [
+                "ADMIN_USER={{user `admin_user`}}",
+                "ADMIN_USER_AUTHORIZED_KEYS={{user `admin_user_authorized_keys`}}",
+                "ADMIN_USER_PASSWORD={{user `admin_user_password`}}",
+                "ADMIN_USER_SHELL={{user `admin_user_shell`}}",
+                "MIRROR_HOSTNAME={{user `mirror_hostname`}}",
+                "PYTHON={{user `python`}}"
+            ],
+            "scripts": [
+                "scripts/common/admin-user.sh",
+                "scripts/common/sshd.sh",
+                "scripts/openbsd/rsync.sh",
+                "scripts/openbsd/python.sh",
+                "scripts/openbsd/syspatch.sh",
+                "scripts/openbsd/zerofree.sh"
+            ]
+        }
+    ],
+    "variables": {
+        "admin_user_shell": "/bin/ksh",
+        "boot_wait": "30s",
+        "disk_template": "default.template",
+        "guest_additions_mode": "disable",
+        "guest_os_type": "OpenBSD_64",
+        "hard_drive_interface": "scsi",
+        "iso_interface": "ide",
+        "mirror_hostname": "ftp.openbsd.org",
+        "mirror_use_http": "yes",
+        "python": "3",
+        "set_names": "-game*.tgz -x*.tgz",
+        "shutdown_command": "/sbin/halt -p",
+        "vagrantfile_template": "vagrant/Vagrantfile.openbsd",
+        "x_windows": "no"
+    }
+}

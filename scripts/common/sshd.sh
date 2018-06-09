@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -eu
 SSHD_CONFIG="${SSHD_CONFIG:-/etc/ssh/sshd_config}"
 
