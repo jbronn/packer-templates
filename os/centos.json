@@ -4,7 +4,7 @@
             "boot_command": [
                 "<tab> ",
                 "text ",
-                "ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `kickstart_file`}} ",
+                "ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/{{user `kickstart_file`}} ",
                 "biosdevname=0 ",
                 "net.ifnames=0 ",
                 "DISK_TYPE={{user `disk_type`}} ",
