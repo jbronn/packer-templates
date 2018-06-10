@@ -11,6 +11,9 @@ case "${OS}" in
     centos)
         DEFAULT_RELEASE="7.5"
         ;;
+    omnios)
+        DEFAULT_RELEASE="r151022s"
+        ;;
     openbsd)
         DEFAULT_RELEASE="6.3"
         ;;
