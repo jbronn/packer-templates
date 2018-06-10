@@ -36,7 +36,7 @@
             "scripts": [
                 "scripts/common/admin-user.sh",
                 "scripts/common/sshd.sh",
-                "scripts/openbsd/rsync.sh",
+                "scripts/common/rsync.sh",
                 "scripts/openbsd/python.sh",
                 "scripts/openbsd/syspatch.sh",
                 "scripts/openbsd/zerofree.sh"
