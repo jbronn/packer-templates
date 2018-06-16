@@ -1,0 +1,39 @@
+{
+    "builders": [
+        {
+            "boot_command": [
+                "<enter><wait>",
+                "<enter><wait>",
+                " <enter><wait>",
+                "r<enter><wait>",
+                "<bs><bs><bs><bs><bs>{{user `zpool_name`}}<enter><wait>",
+                "><enter><wait>",
+                "<bs><bs><bs><bs><bs><bs><bs><bs>{{user `vm_name`}}<enter><wait>",
+                "n<enter><wait>{{user `guest_timezone`}}<enter><wait>",
+                "<enter><wait>",
+                "<enter><wait>",
+                "<wait2m>",
+                "<enter><wait>",
+                "c<enter><wait>",
+                "c<enter><wait>c<enter><wait>",
+                "r<enter><wait>",
+                "s<enter><wait>",
+                "{{user `admin_user_password`}}<tab>",
+                "{{user `admin_user_password`}}<tab>",
+                "<enter><wait><enter><wait>",
+                "s<wait>s<enter><wait>",
+                "v<enter><wait>",
+                "r<enter><wait>",
+                "s<enter><wait>",
+                "sed -i -e 's~^PermitRootLogin no~PermitRootLogin yes~g' /mnt/etc/ssh/sshd_config<enter><wait>",
+                "cp /mnt/etc/nsswitch.dns /mnt/etc/nsswitch.conf<enter><wait>",
+                "exit<enter><wait>",
+                "r<enter><wait>"
+             ]
+        }
+    ],
+    "variables": {
+        "iso_checksum": "3c44fe237fa7685d4a3fb4c3497e8fda957cc85ab22c85da7895dc6f17b9f287",
+        "iso_url": "https://downloads.omniosce.org/media/stable/omniosce-r151026.iso"
+    }
+}
