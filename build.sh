@@ -12,7 +12,7 @@ case "${OS}" in
         DEFAULT_RELEASE="7.5"
         ;;
     omnios)
-        DEFAULT_RELEASE="r151022s"
+        DEFAULT_RELEASE="stable"
         ;;
     openbsd)
         DEFAULT_RELEASE="6.3"
@@ -33,8 +33,7 @@ OS_RELEASE="${OS_RELEASE:-${DEFAULT_RELEASE}}"
 # focus on the commands and scripts that truly differ between platforms.
 # The rest of the JSON information is recursively merged together from the
 # post-processor file.
-jq -M -s \
-   '{builders: [(.[0].builders[0] * .[1].builders[0])], provisioners: (.[1].provisioners + .[3].provisioners), variables: (.[0].variables * .[1].variables)} * .[2] * .[4]' \
+jq -M -s '{builders: [(.[0].builders[0] * .[1].builders[0] * (if .[2].builders? then .[2].builders[0] else {} end))], provisioners: (.[1].provisioners + .[3].provisioners), variables: (.[0].variables * .[1].variables * .[2].variables)} * .[4]'  \
    builder/$BUILDER.json \
    os/$OS.json \
    os/$OS/$OS_RELEASE.json \

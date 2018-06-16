@@ -1,0 +1,45 @@
+{
+    "builders": [
+        {
+            "boot_command": [
+                "{{user `guest_language`}}<enter><wait>",
+                "1<enter><wait>",
+                "1<enter><wait>",
+                "0<enter><wait>",
+                "{{user `zpool_name`}}<enter><enter><wait>",
+                "{{user `vm_name`}}<wait><enter><wait><enter><wait>",
+                "11<enter><wait>",
+                "{{user `guest_timezone`}}<enter><wait>",
+                "1<enter>",
+                "<wait90s>",
+                "<enter><wait>",
+                "1<enter><wait>",
+                "1<enter><wait>",
+                "2<enter><wait>",
+                "5<enter><wait>{{user `dns_domain`}}<enter><wait>",
+                "6<enter><wait>{{user `dns_server`}}<enter><wait>",
+                "7<enter><wait>",
+                "3<enter><wait>",
+                "{{user `admin_user_password`}}<enter><wait>",
+                "{{user `admin_user_password`}}<enter><wait>",
+                "<enter><wait>",
+                "4<enter><wait>",
+                "5<enter><wait>",
+                "6<enter><wait>",
+                "2<enter><wait>",
+                "sed -i -e 's~^PermitRootLogin no~PermitRootLogin yes~g' /mnt/etc/ssh/sshd_config<enter><wait>",
+                "cp /mnt/etc/nsswitch.dns /mnt/etc/nsswitch.conf<enter><wait>",
+                "exit<enter><wait>",
+                "3<enter><wait>"
+
+            ]
+        }
+    ],
+    "variables": {
+        "dns_domain": "domain.local",
+        "dns_server": "10.0.2.3",
+        "guest_language": "47",
+        "iso_checksum": "5b0496b97b5162f7280c712bd7c034d31d8cddf9925baded0b6ad1fdbd5f06d3",
+        "iso_url": "https://downloads.omniosce.org/media/lts/omniosce-r151022s.iso"
+    }
+}
