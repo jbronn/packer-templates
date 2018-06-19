@@ -3,7 +3,8 @@
         {
             "type": "vagrant",
             "compression_level": "9",
-            "output": "output/{{user `vm_name`}}_{{.Provider}}.box"
+            "output": "output/{{user `vm_name`}}_{{.Provider}}.box",
+            "vagrantfile_template": "{{user `vagrantfile_template`}}"
         }
     ],
     "variables": {
