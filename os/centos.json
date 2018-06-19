@@ -14,9 +14,7 @@
                 "TIMEZONE={{user `guest_timezone`}} ",
                 "ROOTPW={{user `admin_user_password`}} ",
                 "<enter><wait>"
-            ],
-            "ssh_username": "root",
-            "ssh_password": "{{user `admin_user_password`}}"
+            ]
         }
     ],
     "provisioners": [

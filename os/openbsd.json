@@ -17,9 +17,7 @@
                 "URL to autopartitioning template for disklabel = http://{{ .HTTPIP }}:{{ .HTTPPort }}/openbsd/{{user `disk_template`}}<enter>",
                 "EOF<enter>",
                 "install -af install.conf && reboot<enter>"
-            ],
-            "ssh_username": "root",
-            "ssh_password": "{{user `admin_user_password`}}"
+            ]
         }
     ],
     "provisioners": [

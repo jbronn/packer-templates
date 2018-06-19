@@ -1,9 +1,6 @@
 {
     "builders": [
-        {
-            "ssh_username": "root",
-            "ssh_password": "{{user `admin_user_password`}}"
-        }
+        {}
     ],
     "provisioners": [
         {

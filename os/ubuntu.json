@@ -28,9 +28,7 @@
                 "biosdevname=0 ",
                 "net.ifnames=0 ",
                 "<enter>"
-            ],
-            "ssh_username": "root",
-            "ssh_password": "{{user `admin_user_password`}}"
+            ]
         }
     ],
     "provisioners": [
