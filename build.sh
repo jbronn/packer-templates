@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 
 # Set default action to build a CentOS base box.
 BUILDER="${BUILDER:-virtualbox-iso}"
@@ -34,9 +35,9 @@ OS_RELEASE="${OS_RELEASE:-${DEFAULT_RELEASE}}"
 # The rest of the JSON information is recursively merged together from the
 # post-processor file.
 jq -M -s '{builders: [(.[0].builders[0] * .[1].builders[0] * (if .[2].builders? then .[2].builders[0] else {} end))], provisioners: (.[1].provisioners + .[3].provisioners), variables: (.[0].variables * .[1].variables * .[2].variables)} * .[4]'  \
-   builder/$BUILDER.json \
-   os/$OS.json \
-   os/$OS/$OS_RELEASE.json \
-   provisioner/$PROVISIONER.json \
-   post-processor/$POST_PROCESSOR.json | \
+   "builder/$BUILDER.json" \
+   "os/$OS.json" \
+   "os/$OS/$OS_RELEASE.json" \
+   "provisioner/$PROVISIONER.json" \
+   "post-processor/$POST_PROCESSOR.json" | \
    packer build "$@" -
