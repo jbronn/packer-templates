@@ -16,6 +16,7 @@ VAGRANT_CLOUD_TOKEN_FILE=""
 VAGRANT_CLOUD_USER="hoot"
 VMIMPORT_BUCKET=""
 
+# Retrieving command-line options.
 while getopts ":i:n:t:u:v:" opt; do
     case "$opt" in
         i)
@@ -35,6 +36,7 @@ while getopts ":i:n:t:u:v:" opt; do
             ;;
     esac
 done
+shift $((OPTIND-1))
 
 # Document the usage for this script.
 function usage() {
@@ -131,7 +133,7 @@ case "$BOX_NAME" in
 esac
 
 # Generate VirtualBox-provided Vagrant box.
-echo OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=vagrant-cloud PROVISIONER=$PROVISIONER \
+OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=vagrant-cloud PROVISIONER=$PROVISIONER \
    ./build.sh \
    -var "vm_name=$BOX_NAME" \
    -var "box_tag=hoot/$BOX_NAME" \
@@ -145,7 +147,7 @@ echo OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=vagrant-cloud PROVISIONER=$PRO
 BOX_DIR="$(mktemp -d)"
 
 # Generate AWS-provided Vagrant box.
-echo OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=amazon-import PROVISIONER=$PROVISIONER \
+OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=amazon-import PROVISIONER=$PROVISIONER \
   ./build.sh \
   -var "vm_name=$BOX_NAME" \
   -var "ami_description=$AMI_DESCRIPTION" \
@@ -160,15 +162,14 @@ echo OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=amazon-import PROVISIONER=$PRO
   -var "secret_key=$AWS_SECRET_ACCESS_KEY" | tee "$BOX_DIR/packer-build.log"
 
 # Determine the AMI ID from the build log.
-BOX_AMI="$(awk '{ if ($1 ~ /^us-east-1:/ ) print $2 }' < "$BOX_DIR/packer-build.log")"
+BOX_AMI="$(awk "{ if (\$1 ~ /^$REGION:/ ) print \$2 }" < "$BOX_DIR/packer-build.log")"
 if [ -z "$BOX_AMI" ]; then
     echo "Could not determine AMI from packer log: $BOX_DIR/packer-build.log"
     exit 1
 fi
 
-# Create box tarball with correct metadata.json and Vagrantfile.
+# Manually create box tarball with correct metadata.json and Vagrantfile.
 pushd "$BOX_DIR"
-
 cat > metadata.json <<EOF
 {
     "provider": "aws"
@@ -186,7 +187,9 @@ EOF
 tar -czf aws.box metadata.json Vagrantfile
 popd
 
-# The base URL for the releases.
+
+# The base URL for the releases.  For reference, API instructions came from:
+#  https://www.vagrantup.com/docs/vagrant-cloud/api.html
 VAGRANT_URL="https://vagrantcloud.com/api/v1/box/$VAGRANT_CLOUD_USER/$BOX_NAME/version/$BOX_VERSION"
 
 # Create aws provider for the new box version.
