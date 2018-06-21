@@ -102,6 +102,7 @@ if [ "$USAGE" = "yes" ]; then
     usage
 fi
 
+# Set up preset variables for release box we're creating.
 case "$BOX_NAME" in
     centos7-hoot)
         AMI_DESCRIPTION="CentOS 7 Hootenanny v$BOX_VERSION"
@@ -132,19 +133,32 @@ case "$BOX_NAME" in
         ;;
 esac
 
+# Temporary directory for box-related files.
+BOX_DIR="$(mktemp -d)"
+
+# Create the box first on the Vagrant Cloud account.
+curl \
+    --header "Content-Type: application/json" \
+    --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+    https://app.vagrantup.com/api/v1/boxes \
+    --data "{ \"box\": { \"username\": \"$VAGRANT_CLOUD_USER\", \"name\": \"$BOX_NAME\" } }" \
+    -o "$BOX_DIR/box-create.json"
+
+if [ -n "$(jq -M -r -s '(if .[0].name? then .[0].name else "" end)' "$BOX_DIR/box-create.json")" ]; then
+    echo "Created $VAGRANT_CLOUD_USER/$BOX_NAME on Vagrant Cloud."
+fi
+
 # Generate VirtualBox-provided Vagrant box.
 OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=vagrant-cloud PROVISIONER=$PROVISIONER \
    ./build.sh \
    -var "vm_name=$BOX_NAME" \
-   -var "box_tag=hoot/$BOX_NAME" \
+   -var "box_tag=$VAGRANT_CLOUD_USER/$BOX_NAME" \
    -var "box_version=$BOX_VERSION" \
    -var 'headless=true' \
    -var "memsize=$MEMSIZE" \
    -var 'ssh_wait_timeout=90m' \
    -var "access_token=$VAGRANT_CLOUD_TOKEN"
 
-# Temporary directory for AWS-box files.
-BOX_DIR="$(mktemp -d)"
 
 # Generate AWS-provided Vagrant box.
 OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=amazon-import PROVISIONER=$PROVISIONER \
