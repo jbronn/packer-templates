@@ -138,11 +138,13 @@ BOX_DIR="$(mktemp -d)"
 
 # Create the box first on the Vagrant Cloud account.
 curl \
+    --silent --show-error \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-    https://app.vagrantup.com/api/v1/boxes \
     --data "{ \"box\": { \"username\": \"$VAGRANT_CLOUD_USER\", \"name\": \"$BOX_NAME\" } }" \
-    -o "$BOX_DIR/box-create.json"
+    --output "$BOX_DIR/box-create.json" \
+    https://app.vagrantup.com/api/v1/boxes
+
 
 if [ -n "$(jq -M -r -s '(if .[0].name? then .[0].name else "" end)' "$BOX_DIR/box-create.json")" ]; then
     echo "Created $VAGRANT_CLOUD_USER/$BOX_NAME on Vagrant Cloud."
@@ -201,32 +203,34 @@ EOF
 tar -czf aws.box metadata.json Vagrantfile
 popd
 
-
 # The base URL for the releases.  For reference, API instructions came from:
 #  https://www.vagrantup.com/docs/vagrant-cloud/api.html
 VAGRANT_URL="https://vagrantcloud.com/api/v1/box/$VAGRANT_CLOUD_USER/$BOX_NAME/version/$BOX_VERSION"
 
 # Create aws provider for the new box version.
 curl \
-  --header "Content-Type: application/json" \
-  --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-  "$VAGRANT_URL/providers" \
-  --data '{ "provider": { "name": "aws" } }'
+    --silent --show-error \
+    --header "Content-Type: application/json" \
+    --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+    --data '{ "provider": { "name": "aws" } }' \
+    "$VAGRANT_URL/providers"
 
 # Get the upload path for the new aws-provided box.
-UPLOAD_RESPONSE="$(curl --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" "$VAGRANT_URL/provider/aws/upload")"
+UPLOAD_RESPONSE="$(curl --silent --show-error --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" "$VAGRANT_URL/provider/aws/upload")"
 UPLOAD_PATH="$(echo "$UPLOAD_RESPONSE" | jq -M -r -s '(if .[0].upload_path? then .[0].upload_path else "" end)')"
 
 if [ -n "$UPLOAD_PATH" ]; then
     # Upload the box and finalize the release.
     curl \
-        "$UPLOAD_PATH" \
+        --silent --show-error \
         --request PUT \
-        --upload-file "$BOX_DIR/aws.box"
+        --upload-file "$BOX_DIR/aws.box" \
+        "$UPLOAD_PATH"
     curl \
+        --silent --show-error \
         --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-        "$VAGRANT_URL/release" \
-        --request PUT
+        --request PUT \
+        "$VAGRANT_URL/release"
 
     # Clean up box directory.
     rm -fr "$BOX_DIR"
