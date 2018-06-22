@@ -141,7 +141,7 @@ curl \
     --silent --show-error \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-    --data "{ \"box\": { \"username\": \"$VAGRANT_CLOUD_USER\", \"name\": \"$BOX_NAME\" } }" \
+    --data "{ \"box\": { \"username\": \"$VAGRANT_CLOUD_USER\", \"name\": \"$BOX_NAME\", \"is_private\": false } }" \
     --output "$BOX_DIR/box-create.json" \
     https://app.vagrantup.com/api/v1/boxes
 
