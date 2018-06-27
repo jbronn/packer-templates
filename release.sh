@@ -28,6 +28,9 @@ while getopts ":i:n:t:u:v:" opt; do
         t)
             VAGRANT_CLOUD_TOKEN_FILE="$OPTARG"
             ;;
+        u)
+            VAGRANT_CLOUD_USER="$OPTARG"
+            ;;
         v)
             BOX_VERSION="$OPTARG"
             ;;
@@ -145,7 +148,6 @@ curl \
     --output "$BOX_DIR/box-create.json" \
     https://app.vagrantup.com/api/v1/boxes
 
-
 if [ -n "$(jq -M -r -s '(if .[0].name? then .[0].name else "" end)' "$BOX_DIR/box-create.json")" ]; then
     echo "Created $VAGRANT_CLOUD_USER/$BOX_NAME on Vagrant Cloud."
 fi
@@ -160,7 +162,6 @@ OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=vagrant-cloud PROVISIONER=$PROVISIO
    -var "memsize=$MEMSIZE" \
    -var 'ssh_wait_timeout=90m' \
    -var "access_token=$VAGRANT_CLOUD_TOKEN"
-
 
 # Generate AWS-provided Vagrant box.
 OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=amazon-import PROVISIONER=$PROVISIONER \
