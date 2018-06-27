@@ -23,7 +23,7 @@ if [ -f /etc/os-release ]; then
     source /etc/os-release
     if [ "$NAME" = "Ubuntu" ]; then
         # Upstart script on Ubuntu 14.04 to automatically generate SSH keys.
-        if [ "$VERSION_CODENAME" = "trusty" ]; then
+        if [ "${VERSION_ID:-}" = "14.04" ]; then
             cat > /etc/init/ssh-keygen.conf <<EOF
 description "OpenSSH HostKey Generation"
 
@@ -45,7 +45,7 @@ end script
 EOF
         fi
         # Systemd unit on Ubuntu 18.04 to automatically generate SSH keys.
-        if [ "$VERSION_CODENAME" = "bionic" ]; then
+        if [ "${VERSION_CODENAME:-}" = "bionic" ]; then
             cat > /lib/systemd/system/ssh-keygen.service <<EOF
 [Unit]
 Description=OpenSSH Server Key Generation
