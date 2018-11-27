@@ -5,7 +5,8 @@
            "environment_vars": [
            ],
            "scripts": [
-               "scripts/centos/hoot-provision.sh"
+               "scripts/centos/hoot-provision.sh",
+               "scripts/common/zerofree.sh"
            ]
        }
     ]

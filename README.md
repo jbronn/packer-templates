@@ -16,68 +16,45 @@ Using `jq` this script manipulates fragments of JSON into a complete template be
 The following environment variables control what's built:
 
 * `OS`: Corresponds to the operating system template in [`os`](./os), can be `centos` or `ubuntu`.
-* `OS_RELEASE`: Corresponds to the operating system release used, e.g., `7.4` for [CentOS](./os/centos) or `trusty` for [Ubuntu](./os/ubuntu).
+* `OS_RELEASE`: Corresponds to the operating system release used, e.g., `7.5` for [CentOS](./os/centos) or `bionic` for [Ubuntu](./os/ubuntu).
 * `POST_PROCESSOR`: The [`post-processor`](./post-processor) to use:
   * `vagrant`: This is the default, creates a Vagrant box in the `output` directory.
   * `vagrant-cloud`: Creates a vagrant box and uploads it Vagrant Cloud.
   * `amazon-import`: Creates an OVA that is imported as an AMI using the AWS VM Import service.
+* `PROVISIONER`:  The [`provisioner`](./provisoner) installs additional software:
+  * [`default`](./provisioner/default.json): The default provisioner does nothing.
+  * [`hoot`](./provisioner/hoot.json): Prepares the host with packages necessary to install and test [Hootenanny](https://github.com/ngageoint/hootenanny/).
 
 Any additional command-line arguments are passed directly to `packer` which is useful for customization of [user variables](https://www.packer.io/docs/templates/user-variables.html).  For example:
 
 ```sh
 OS=ubuntu ./build.sh \
-  -var 'vm_name=trusty' \
+  -var 'vm_name=bionic' \
   -var 'headless=true' \
   -var 'disk_size=81920' \
   -var-file ~/my-variables.json
 ```
 
-## Examples
+## `release.sh`
 
-Examples are provided below of how this repository was used to generate their respective boxes on Vagrant Cloud.
+This script is a wrapper for `build.sh` that automatically sets up proper variables for the release versions of Hootenanny Vagrant Cloud boxes.  Examples are provided below of how this repository was used to generate the specific boxes.  All examples assume proper AWS and Vagrant Cloud credentials are in the environment:
+
+```sh
+export AWS_ACCESS_KEY_ID=AAAABBBBCCCC
+export AWS_SECRET_ACCESS_KEY=secret
+export VAGRANT_CLOUD_TOKEN=AAABBBCCC
+```
+
+AWS credentials must satisfy Amazon's [VM Import/Export Requirements](https://docs.aws.amazon.com/vm-import/latest/userguide/vmie_prereqs.html).
 
 ### `hoot/centos7-minimal`
 
-VirtualBox provided:
-
 ```sh
-OS=centos OS_RELEASE=7.4 POST_PROCESSOR=vagrant-cloud ./build.sh \
-  -var 'vm_name=centos7-minimal' \
-  -var 'box_tag=hoot/centos7-minimal' \
-  -var 'access_token=AAABBBCCC'
-```
-
-AWS-provided:
-
-```sh
-OS=centos OS_RELEASE=7.4 POST_PROCESSOR=amazon-import ./build.sh \
-  -var 'vm_name=centos7-minimal' \
-  -var 'ami_description=CentOS 7 Minimal' \
-  -var 'region=us-east-1' \
-  -var 's3_bucket_name=my-bucket' \
-  -var 'access_key=AAAABBBBCCCC' \
-  -var 'secret_key=secret'
+./release.sh -n centos7-minimal -i my-bucket
 ```
 
 ### `hoot/trusty-minimal`
 
-VirtualBox provided:
-
 ```sh
-OS=ubuntu OS_RELEASE=trusty POST_PROCESSOR=vagrant-cloud ./build.sh \
-  -var 'vm_name=trusty-minimal' \
-  -var 'box_tag=hoot/trusty-minimal' \
-  -var 'access_token=AAABBBCCC'
-```
-
-AWS provided:
-
-```sh
-OS=ubuntu OS_RELEASE=trusty POST_PROCESSOR=amazon-import ./build.sh \
-  -var 'vm_name=trusty-minimal' \
-  -var 'ami_description=Ubuntu 14.04 Minimal' \
-  -var 'region=us-east-1' \
-  -var 's3_bucket_name=my-bucket' \
-  -var 'access_key=AAAABBBBCCCC' \
-  -var 'secret_key=secret'
+./release.sh -n trusty-minimal -i my-bucket
 ```
