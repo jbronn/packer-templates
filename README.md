@@ -42,6 +42,7 @@ This script is a wrapper for `build.sh` that automatically sets up proper variab
 ```sh
 export AWS_ACCESS_KEY_ID=AAAABBBBCCCC
 export AWS_SECRET_ACCESS_KEY=secret
+export AWS_SESSION_TOKEN=AAAABBBBCCCC
 export VAGRANT_CLOUD_TOKEN=AAABBBCCC
 ```
 

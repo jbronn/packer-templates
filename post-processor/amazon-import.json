@@ -4,6 +4,7 @@
             "type": "amazon-import",
             "access_key": "{{user `access_key`}}",
             "secret_key": "{{user `secret_key`}}",
+            "token": "{{user `token`}}",
             "ami_groups": [
                 "all"
             ],
@@ -30,6 +31,7 @@
         "preseed_file": "preseed-ext4.cfg",
         "region": null,
         "s3_bucket_name": null,
-        "secret_key": null
+        "secret_key": null,
+        "token": null
     }
 }
