@@ -16,7 +16,7 @@ case "${OS}" in
         DEFAULT_RELEASE="stable"
         ;;
     openbsd)
-        DEFAULT_RELEASE="6.3"
+        DEFAULT_RELEASE="6.5"
         ;;
     ubuntu)
         DEFAULT_RELEASE="bionic"

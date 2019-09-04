@@ -9,9 +9,9 @@ echo '---> Cleaning apt.'
 dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs apt-get -y purge
 
 # Clean out apt cache, lists, and autoremove any packages.
-rm -f /var/lib/apt/lists/lock
-rm -f /var/lib/apt/lists/*_*
-rm -f /var/lib/apt/lists/partial/*
+#rm -f /var/lib/apt/lists/lock
+#rm -f /var/lib/apt/lists/*_*
+#rm -f /var/lib/apt/lists/partial/*
 apt-get -q -y autoremove
 apt-get -q -y clean
 

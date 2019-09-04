@@ -20,7 +20,7 @@ sed -i \
 printf "\nUseDNS no\n" >> $SSHD_CONFIG
 
 if [ -f /etc/os-release ]; then
-    source /etc/os-release
+    . /etc/os-release
     if [ "$NAME" = "Ubuntu" ]; then
         # Upstart script on Ubuntu 14.04 to automatically generate SSH keys.
         if [ "${VERSION_ID:-}" = "14.04" ]; then

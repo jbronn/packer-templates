@@ -8,6 +8,14 @@ if [ "$PYTHON" != "2" -a "$PYTHON" != "3" ]; then
 fi
 
 case "$(uname -r)" in
+    6.5)
+        PY2_PACKAGE=python-2.7.16
+        PY3_PACKAGE=python-3.6.8p0
+        ;;
+    6.4)
+        PY2_PACKAGE=python-2.7.15p0
+        PY3_PACKAGE=python-3.6.6p1
+        ;;
     6.3)
         PY2_PACKAGE=python-2.7.14p1
         PY3_PACKAGE=python-3.6.4p0

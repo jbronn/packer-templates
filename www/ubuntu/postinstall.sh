@@ -15,4 +15,4 @@ sed -i \
 
 apt-get -y update
 apt-get -y -o DPkg::Options="--force-confold" upgrade
-apt-get -y install $KERNEL_PACKAGE
+apt-get -y install $KERNEL_PACKAGE netplan.io

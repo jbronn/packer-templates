@@ -37,6 +37,7 @@
                 "scripts/common/rsync.sh",
                 "scripts/openbsd/python.sh",
                 "scripts/openbsd/syspatch.sh",
+                "scripts/openbsd/ffs.sh",
                 "scripts/openbsd/zerofree.sh"
             ]
         }

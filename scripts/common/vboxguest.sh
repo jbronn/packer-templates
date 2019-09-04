@@ -9,7 +9,7 @@ fi
 KERNEL="$(uname -s)"
 
 if [ "$KERNEL" = "Linux" ]; then
-    source /etc/os-release
+    . /etc/os-release
 
     # Install the prerequisites necessary to build the guest extensions.
     if [ "$ID" = "ubuntu" -o "$ID" = "debian" ]; then
