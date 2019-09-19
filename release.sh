@@ -122,12 +122,12 @@ case "$BOX_NAME" in
         MEMSIZE=4096
         PROVISIONER=hoot
         OS=centos
-        OS_RELEASE=7.6
+        OS_RELEASE=7.7
         ;;
     centos7-minimal)
         AMI_DESCRIPTION="CentOS 7 Minimal v$BOX_VERSION"
         OS=centos
-        OS_RELEASE=7.6
+        OS_RELEASE=7.7
         ;;
     bionic-minimal)
         AMI_DESCRIPTION="Ubuntu 18.04 (bionic) Minimal v$BOX_VERSION"

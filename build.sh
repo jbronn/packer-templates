@@ -9,7 +9,7 @@ POST_PROCESSOR="${POST_PROCESSOR:-vagrant}"
 # Determining the OS release to use.
 case "${OS}" in
     centos)
-        DEFAULT_RELEASE="7.6"
+        DEFAULT_RELEASE="7.7"
         ;;
     ubuntu)
         DEFAULT_RELEASE="bionic"
