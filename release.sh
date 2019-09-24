@@ -5,6 +5,7 @@ set -euo pipefail
 AMI_DISK_SIZE=8192
 AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID:-}"
 AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-}"
+AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN:-}"
 BOX_VERSION="$(date +%Y%m%d).0.0"
 BOX_NAME=""
 MEMSIZE=512
@@ -48,10 +49,11 @@ function usage() {
     echo "  [-u <Vagrant Cloud User, default: '$VAGRANT_CLOUD_USER'>"
     echo "  [-v <Box Version, default: '$BOX_VERSION'>]"
     echo ""
-    echo "  This script requires Vagrant Cloud and AWS credentials."
-    echo "  AWS credentials may be specified in in ~/.aws/credentials or the"
-    echo "  \$AWS_ACCESS_KEY_ID and \$AWS_SECRET_ACCESS_KEY environment"
-    echo "  variables. The credentials must have IAM privileges to use the"
+    echo "  This script requires Vagrant Cloud and an existing AWS MFA session."
+    echo "  AWS session information should be specified in "
+    echo "  \$AWS_ACCESS_KEY_ID, \$AWS_SECRET_ACCESS_KEY, and"
+    echo "  \$AWS_SESSION_TOKEN environment variables."
+    echo "  The credentials must have IAM privileges to use the"
     echo "  AWS VM Import/Export service on the provided VM Import S3 Bucket."
     echo ""
     echo "  The Vagrant Cloud token may be provided via a JSON file with an"
@@ -66,8 +68,10 @@ if [ -z "$AWS_ACCESS_KEY_ID" -o -z "$AWS_SECRET_ACCESS_KEY" ]; then
     if [ -x "$(which aws)" ]; then
         AWS_ACCESS_KEY_ID="$(aws configure get aws_access_key_id || true)"
         AWS_SECRET_ACCESS_KEY="$(aws configure get aws_secret_access_key || true)"
+        AWS_SESSION_TOKEN="$(aws configure get aws_session_token || true)"
     fi
 fi
+
 
 if [ -z "$AWS_ACCESS_KEY_ID" ]; then
     printf "Error: AWS_ACCESS_KEY_ID is undefined.\n\n"
@@ -76,6 +80,11 @@ fi
 
 if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
     printf "Error: AWS_SECRET_ACCESS_KEY is undefined.\n\n"
+    USAGE=yes
+fi
+
+if [ -z "$AWS_SESSION_TOKEN" ]; then
+    printf "Error: AWS_SESSION_TOKEN is undefined.\n\n"
     USAGE=yes
 fi
 
@@ -113,12 +122,12 @@ case "$BOX_NAME" in
         MEMSIZE=4096
         PROVISIONER=hoot
         OS=centos
-        OS_RELEASE=7.5
+        OS_RELEASE=7.7
         ;;
     centos7-minimal)
         AMI_DESCRIPTION="CentOS 7 Minimal v$BOX_VERSION"
         OS=centos
-        OS_RELEASE=7.5
+        OS_RELEASE=7.7
         ;;
     bionic-minimal)
         AMI_DESCRIPTION="Ubuntu 18.04 (bionic) Minimal v$BOX_VERSION"
@@ -176,7 +185,8 @@ OS=$OS OS_RELEASE=$OS_RELEASE POST_PROCESSOR=amazon-import PROVISIONER=$PROVISIO
   -var 'ssh_wait_timeout=90m' \
   -var "s3_bucket_name=$VMIMPORT_BUCKET" \
   -var "access_key=$AWS_ACCESS_KEY_ID" \
-  -var "secret_key=$AWS_SECRET_ACCESS_KEY" | tee "$BOX_DIR/packer-build.log"
+  -var "secret_key=$AWS_SECRET_ACCESS_KEY" \
+  -var "token=$AWS_SESSION_TOKEN" | tee "$BOX_DIR/packer-build.log"
 
 # Determine the AMI ID from the build log.
 BOX_AMI="$(awk "{ if (\$1 ~ /^$REGION:/ ) print \$2 }" < "$BOX_DIR/packer-build.log")"
