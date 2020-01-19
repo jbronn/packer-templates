@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eux
+set -eu
 
 # Bail if guest extensions ISO wasn't uploaded.
 if [ "$VBOXGUEST" != "upload" ]; then
