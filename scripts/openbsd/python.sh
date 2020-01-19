@@ -3,11 +3,17 @@ set -eu
 echo '--> Installing Python.'
 
 PYTHON="${PYTHON:-3}"
+PY3_MAJVER="3.6"
 if [ "$PYTHON" != "2" -a "$PYTHON" != "3" ]; then
     exit 0
 fi
 
 case "$(uname -r)" in
+    6.6)
+        PY2_PACKAGE=python-2.7.16p1
+        PY3_PACKAGE=python-3.7.4
+        PY3_MAJVER="3.7"
+        ;;
     6.5)
         PY2_PACKAGE=python-2.7.16
         PY3_PACKAGE=python-3.6.8p0
@@ -32,9 +38,9 @@ esac
 
 if [ "$PYTHON" == "3" ]; then
     pkg_add $PY3_PACKAGE py3-pip
-    ln -s /usr/local/bin/easy_install-3.6 /usr/local/bin/easy_install
-    ln -s /usr/local/bin/pip3.6 /usr/local/bin/pip
-    ln -s /usr/local/bin/pyvenv-3.6 /usr/local/bin/pyvenv
+    ln -s /usr/local/bin/easy_install-$PY3_MAJVER /usr/local/bin/easy_install
+    ln -s /usr/local/bin/pip$PY3_MAJVER /usr/local/bin/pip3
+    ln -s /usr/local/bin/pyvenv-$PY3_MAJVER /usr/local/bin/pyvenv
 else
     pkg_add $PY2_PACKAGE py-pip
     ln -s /usr/local/bin/easy_install-2.7 /usr/local/bin/easy_install
