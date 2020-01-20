@@ -43,9 +43,7 @@ script
   fi
 end script
 EOF
-        fi
-        # Systemd unit on Ubuntu 18.04 to automatically generate SSH keys.
-        if [ "${VERSION_CODENAME:-}" = "bionic" ]; then
+        else
             cat > /lib/systemd/system/ssh-keygen.service <<EOF
 [Unit]
 Description=OpenSSH Server Key Generation
