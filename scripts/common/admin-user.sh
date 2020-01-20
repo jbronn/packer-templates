@@ -4,6 +4,7 @@ set -eu
 ADMIN_SUDO="${ADMIN_SUDO:-yes}"
 ADMIN_USER="${ADMIN_USER:-vagrant}"
 ADMIN_GROUP="${ADMIN_GROUP:-$ADMIN_USER}"
+ADMIN_GROUPS="${ADMIN_GROUPS:-}"
 ADMIN_USER_AUTHORIZED_KEYS="${ADMIN_USER_AUTHORIZED_KEYS:-}"
 ADMIN_USER_PASSWORD="${ADMIN_USER_PASSWORD:-vagrant}"
 ADMIN_USER_SHELL="${ADMIN_USER_SHELL:-/bin/bash}"
@@ -16,6 +17,17 @@ if [ "$KERNEL" = "Linux" ]; then
     useradd -m -d "$ADMIN_USER_HOME" -s "$ADMIN_USER_SHELL" "$ADMIN_USER"
     echo '---> Setting password.'
     echo "${ADMIN_USER}:${ADMIN_USER_PASSWORD}" | chpasswd
+
+    LSB_DIST="$(. /etc/os-release && echo "$ID")"
+    if [ "$LSB_DIST" = 'centos' ] || [ "$LSB_DIST" = 'fedora' ] || [ "$LSB_DIST" = 'rhel' ]; then
+        ADMIN_GROUPS="${ADMIN_GROUPS:-adm,systemd-journal,wheel}"
+    elif [ "$LSB_DIST" = 'debian' ] || [ "$LSB_DIST" = 'ubuntu' ]; then
+        ADMIN_GROUPS="${ADMIN_GROUPS:-adm}"
+    fi
+    if [ -n "$ADMIN_GROUPS" ]; then
+        echo '---> Setting groups.'
+        usermod -a -G "$ADMIN_GROUPS" "$ADMIN_USER"
+    fi
 fi
 
 if [ "$KERNEL" = "OpenBSD" ]; then
