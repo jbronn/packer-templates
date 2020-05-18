@@ -1,0 +1,13 @@
+name: packer-templates
+description: Templates for creating vagrant boxes used by the FoundationGEOINT team
+source: https://gitub.com/DigitalGlobe/packer-templates
+team: FoundationGEOINT Engineering Team
+data classification: Public
+language:
+  - javascript
+
+poc:
+  - name: Justin Bronn
+    email: justin.bronn@maxar.com
+  - name: Seth Putnam
+    email: seth.putnam@maxar.com
