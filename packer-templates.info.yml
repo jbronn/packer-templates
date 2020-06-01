@@ -2,7 +2,7 @@ name: packer-templates
 description: Templates for creating vagrant boxes used by the FoundationGEOINT team
 source: https://gitub.com/DigitalGlobe/packer-templates
 team: FoundationGEOINT Engineering Team
-data classification: public
+data_classification: public
 language:
   - javascript
 
