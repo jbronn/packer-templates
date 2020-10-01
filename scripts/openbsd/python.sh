@@ -3,32 +3,39 @@ set -eu
 echo '--> Installing Python.'
 
 PYTHON="${PYTHON:-3}"
-PY3_MAJVER="3.6"
+PY3_MAJVER="3.7"
 if [ "$PYTHON" != "2" -a "$PYTHON" != "3" ]; then
     exit 0
 fi
 
 case "$(uname -r)" in
+    6.7)
+        PY2_PACKAGE=python-2.7.18p0
+        PY3_PACKAGE=python-3.7.7
+        ;;
     6.6)
         PY2_PACKAGE=python-2.7.16p1
         PY3_PACKAGE=python-3.7.4
-        PY3_MAJVER="3.7"
         ;;
     6.5)
         PY2_PACKAGE=python-2.7.16
         PY3_PACKAGE=python-3.6.8p0
+        PY3_MAJVER="3.6"
         ;;
     6.4)
         PY2_PACKAGE=python-2.7.15p0
         PY3_PACKAGE=python-3.6.6p1
+        PY3_MAJVER="3.6"
         ;;
     6.3)
         PY2_PACKAGE=python-2.7.14p1
         PY3_PACKAGE=python-3.6.4p0
+        PY3_MAJVER="3.6"
         ;;
     6.2)
         PY2_PACKAGE=python-2.7.14
         PY3_PACKAGE=python-3.6.2
+        PY3_MAJVER="3.6"
         ;;
     *)
         echo 'Do recognize OpenBSD version.'

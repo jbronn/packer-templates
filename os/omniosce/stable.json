@@ -33,7 +33,7 @@
         }
     ],
     "variables": {
-        "iso_checksum": "3c44fe237fa7685d4a3fb4c3497e8fda957cc85ab22c85da7895dc6f17b9f287",
-        "iso_url": "https://downloads.omniosce.org/media/stable/omniosce-r151026.iso"
+        "iso_checksum": "sha256:7d2f16cd753d24eae5940e477847700cdf2ece40bdb7b5abae061c29c5dda75b",
+        "iso_url": "https://downloads.omniosce.org/media/stable/omniosce-r151034l.iso"
     }
 }

@@ -39,7 +39,7 @@
         "dns_domain": "domain.local",
         "dns_server": "10.0.2.3",
         "guest_language": "47",
-        "iso_checksum": "5b0496b97b5162f7280c712bd7c034d31d8cddf9925baded0b6ad1fdbd5f06d3",
-        "iso_url": "https://downloads.omniosce.org/media/lts/omniosce-r151022s.iso"
+        "iso_checksum": "sha256:7c1936c6394af381b2541b35b55a817d2e8b2dea16478b30faaa5a63f9914006",
+        "iso_url": "https://downloads.omniosce.org/media/lts/omniosce-r151030ap.iso"
     }
 }

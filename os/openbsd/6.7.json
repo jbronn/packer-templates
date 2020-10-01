@@ -1,0 +1,8 @@
+{
+    "variables": {
+        "iso_checksum": "sha256:b035af1a8b9624c39977ebd13ae63dbb8f59b3ed31c8425574c921ee818b5bae",
+        "iso_url": "https://ftp.openbsd.org/pub/OpenBSD/6.7/amd64/cd67.iso",
+        "openbsd_version": "6.7",
+        "openbsd_version_spaceless": "67"
+    }
+}

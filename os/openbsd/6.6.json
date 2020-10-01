@@ -1,6 +1,6 @@
 {
     "variables": {
-        "iso_checksum": "c2d4d567657b3160b549ebc08561e3c8a2e8130cdd8d4676476861d5e063ea7a",
+        "iso_checksum": "sha256:c2d4d567657b3160b549ebc08561e3c8a2e8130cdd8d4676476861d5e063ea7a",
         "iso_url": "https://ftp.openbsd.org/pub/OpenBSD/6.6/amd64/cd66.iso",
         "openbsd_version": "6.6",
         "openbsd_version_spaceless": "66"
