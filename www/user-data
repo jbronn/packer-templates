@@ -2,21 +2,28 @@
 autoinstall:
   version: 1
   locale: en_US
-  identity:
-    hostname: ubuntu
-    username: vagrant
-    password: '$6$HanS/t/F$V69V0PiKAJMxVqQ5iA47vLAoNHr6HK1JIuYp8NteayXrfJxjNvGx0bCXwqPaftdftJHdx/hqYxUdNX0J53Fwz0'
+  late-commands:
+    - sed -i -e 's/GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"/' /target/etc/default/grub
+    - curtin in-target --target /target update-grub2
   network:
     network:
       version: 2
       ethernets:
-        all-eth:
-          dhcp4: yes
-          match:
-            name: "en*"        
+        eth0:
+          dhcp4: true
   ssh:
     allow-pw: true
     install-server: true
+  user-data:
+    users:
+      - name: vagrant
+        passwd: '$6$HanS/t/F$V69V0PiKAJMxVqQ5iA47vLAoNHr6HK1JIuYp8NteayXrfJxjNvGx0bCXwqPaftdftJHdx/hqYxUdNX0J53Fwz0'
+        groups: [adm, cdrom, dip, plugdev, sudo]
+        lock-passwd: false
+        sudo: 'ALL=(ALL:ALL) NOPASSWD: ALL'
+        shell: /bin/bash
+        ssh_authorized_keys:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key
   storage:
     layout:
       name: direct

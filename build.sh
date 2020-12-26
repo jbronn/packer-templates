@@ -17,7 +17,7 @@ case "${OS}" in
         DEFAULT_RELEASE="stable"
         ;;
     openbsd)
-        DEFAULT_RELEASE="6.7"
+        DEFAULT_RELEASE="6.8"
         ;;
     ubuntu)
         DEFAULT_RELEASE="focal"

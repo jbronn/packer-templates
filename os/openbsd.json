@@ -50,7 +50,7 @@
         "guest_os_type": "OpenBSD_64",
         "hard_drive_interface": "scsi",
         "iso_interface": "ide",
-        "mirror_hostname": "ftp.openbsd.org",
+        "mirror_hostname": "cdn.openbsd.org",
         "mirror_use_http": "yes",
         "python": "3",
         "set_names": "-game*.tgz -x*.tgz",

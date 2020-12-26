@@ -3,7 +3,7 @@
         {
             "boot_command": [
                 "<enter><enter><f6><esc><wait> ",
-                "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
+                "autoinstall net.ifnames=0 biosdevname=0 ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
                 "<enter>"
             ]
         }
@@ -12,25 +12,19 @@
         {
             "type": "shell",
             "environment_vars": [
-                "CLOUD_INIT={{user `cloud_init`}}",
-                "ADMIN_USER={{user `admin_user`}}",
-                "ADMIN_USER_AUTHORIZED_KEYS={{user `admin_user_authorized_keys`}}",
-                "ADMIN_USER_PASSWORD={{user `admin_user_password`}}",
-                "ADMIN_USER_SHELL={{user `admin_user_shell`}}",
                 "APT_LISTBUGS_FRONTEND=none",
                 "APT_LISTCHANGES_FRONTEND=none",
                 "DEBIAN_FRONTEND=noninteractive",
+                "HOME=/home/{{user `ssh_username`}}",
                 "VBOXGUEST={{user `guest_additions_mode`}}"
             ],
-            "execute_command": "echo 'vagrant' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'",
+            "execute_command": "chmod +x {{.Path}}; sudo bash -c '{{ .Vars }} {{ .Path }}'",
             "scripts": [
-                "scripts/common/admin-user.sh",
+                "scripts/common/cloud-init-wait.sh",
                 "scripts/common/vboxguest.sh",
-                "scripts/common/cloud-init.sh",
                 "scripts/common/sshd.sh",
                 "scripts/ubuntu/cleanup.sh",
-                "scripts/common/zerofree.sh",
-                "scripts/common/lock-root-user.sh"
+                "scripts/common/zerofree.sh"
             ]
         }
     ],
