@@ -1,0 +1,24 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  identity:
+    hostname: ubuntu
+    username: vagrant
+    password: '$6$HanS/t/F$V69V0PiKAJMxVqQ5iA47vLAoNHr6HK1JIuYp8NteayXrfJxjNvGx0bCXwqPaftdftJHdx/hqYxUdNX0J53Fwz0'
+  network:
+    network:
+      version: 2
+      ethernets:
+        all-eth:
+          dhcp4: yes
+          match:
+            name: "en*"        
+  ssh:
+    allow-pw: true
+    install-server: true
+  storage:
+    layout:
+      name: direct
+    swap:
+      size: 0

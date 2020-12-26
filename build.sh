@@ -3,7 +3,8 @@ set -euo pipefail
 
 # Set default action to build a CentOS base box.
 BUILDER="${BUILDER:-virtualbox-iso}"
-OS="${OS:-centos}"
+OS="${OS:-ubuntu}"
+OS_BUILDER="${OS_BUILDER:-$OS}"
 PROVISIONER="${PROVISIONER:-default}"
 POST_PROCESSOR="${POST_PROCESSOR:-vagrant}"
 
@@ -19,7 +20,8 @@ case "${OS}" in
         DEFAULT_RELEASE="6.7"
         ;;
     ubuntu)
-        DEFAULT_RELEASE="bionic"
+        DEFAULT_RELEASE="focal"
+        OS_BUILDER="ubuntu-subiquity"
         ;;
     *)
         echo "Don't know how to build ${OS} yet, exiting."
@@ -36,7 +38,7 @@ OS_RELEASE="${OS_RELEASE:-${DEFAULT_RELEASE}}"
 # post-processor file.
 jq -M -s '{builders: [(.[0].builders[0] * .[1].builders[0] * (if .[2].builders? then .[2].builders[0] else {} end))], provisioners: (.[1].provisioners + .[3].provisioners), variables: (.[0].variables * .[1].variables * .[2].variables)} * .[4]'  \
    "builder/$BUILDER.json" \
-   "os/$OS.json" \
+   "os/$OS_BUILDER.json" \
    "os/$OS/$OS_RELEASE.json" \
    "provisioner/$PROVISIONER.json" \
    "post-processor/$POST_PROCESSOR.json" | \
