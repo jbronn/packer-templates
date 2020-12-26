@@ -1,6 +1,6 @@
 {
     "variables": {
-        "iso_checksum": "a5b0ea5918f850124f3d72ef4b85bda82f0fcd02ec721be19c1a6952791c8ee8",
+        "iso_checksum": "sha256:a5b0ea5918f850124f3d72ef4b85bda82f0fcd02ec721be19c1a6952791c8ee8",
         "iso_url": "http://old-releases.ubuntu.com/releases/18.04.1/ubuntu-18.04.1-server-amd64.iso"
     }
 }
