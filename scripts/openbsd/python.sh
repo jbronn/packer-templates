@@ -1,9 +1,9 @@
 #!/bin/sh
 set -eu
-echo '--> Installing Python.'
+echo "--> Installing Python."
 
 PYTHON="${PYTHON:-3}"
-if [ "$PYTHON" != "2" -a "$PYTHON" != "3" ]; then
+if [ "${PYTHON}" != "2" -a "${PYTHON}" != "3" ]; then
     exit 0
 fi
 
@@ -44,18 +44,18 @@ case "$(uname -r)" in
         PY3_MAJVER="3.6"
         ;;
     *)
-        echo 'Do recognize OpenBSD version.'
+        echo "Do not recognize OpenBSD version."
         exit 1
         ;;
 esac
 
-if [ "$PYTHON" == "3" ]; then
-    pkg_add $PY3_PACKAGE py3-pip
-    ln -s /usr/local/bin/easy_install-$PY3_MAJVER /usr/local/bin/easy_install
-    ln -s /usr/local/bin/pip$PY3_MAJVER /usr/local/bin/pip3
-    ln -s /usr/local/bin/pyvenv-$PY3_MAJVER /usr/local/bin/pyvenv
+if [ "${PYTHON}" == "3" ]; then
+    pkg_add ${PY3_PACKAGE} py3-pip
+    ln -s /usr/local/bin/easy_install-${PY3_MAJVER} /usr/local/bin/easy_install
+    ln -s /usr/local/bin/pip${PY3_MAJVER} /usr/local/bin/pip3
+    ln -s /usr/local/bin/pyvenv-${PY3_MAJVER} /usr/local/bin/pyvenv
 else
-    pkg_add $PY2_PACKAGE py-pip
+    pkg_add ${PY2_PACKAGE} py-pip
     ln -s /usr/local/bin/easy_install-2.7 /usr/local/bin/easy_install
     ln -s /usr/local/bin/pip2.7 /usr/local/bin/pip
 fi

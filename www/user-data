@@ -11,6 +11,8 @@ autoinstall:
       ethernets:
         eth0:
           dhcp4: true
+  packages:
+    - acpid
   ssh:
     allow-pw: true
     install-server: true

@@ -23,6 +23,7 @@
                 "scripts/common/cloud-init-wait.sh",
                 "scripts/common/vboxguest.sh",
                 "scripts/common/sshd.sh",
+                "scripts/common/cloud-init.sh",
                 "scripts/ubuntu/cleanup.sh",
                 "scripts/common/zerofree.sh"
             ]
