@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 echo '--> Zero out free space on disks.'
 
 DD_BLOCKSIZE="${DD_BLOCKSIZE:-1M}"

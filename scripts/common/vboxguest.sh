@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 
 # Bail if guest extensions ISO wasn't uploaded.
 if [ "${VBOXGUEST}" != "upload" ]; then

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -euo pipefail
 SSHD_CONFIG="${SSHD_CONFIG:-/etc/ssh/sshd_config}"
 
 # Configure SSH to:

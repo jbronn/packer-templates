@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 
 GUEST_LANG="${GUEST_LANG:-en_US.UTF-8}"
 

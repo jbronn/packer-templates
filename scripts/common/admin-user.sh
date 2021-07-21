@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 
 ADMIN_USER="${ADMIN_USER:-vagrant}"
 ADMIN_USER_AUTHORIZED_KEYS="${ADMIN_USER_AUTHORIZED_KEYS:-}"

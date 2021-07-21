@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 
 # For "plain" disks (those for AWS), we want to remove the swap partition
 # and rewrite /etc/fstab.

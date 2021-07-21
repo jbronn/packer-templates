@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 echo '--> Cleaning virtual-guest.'
 
 # Clean out any cached interfaces.

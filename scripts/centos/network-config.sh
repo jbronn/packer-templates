@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -euo pipefail
 
 echo '--> Performing post-install network configuration and cleanup.'
 
